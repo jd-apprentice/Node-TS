@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import User from "../models/user";
-
+import userService from "../services/user-service";
 class UserController {
   /**
    * @description: Get all users
@@ -12,7 +11,7 @@ class UserController {
     res: Response
   ): Promise<Response<Record<string, any>>> {
     try {
-      const user = await User.find();
+      const user = await userService.getUsers();
       return res.json(user);
     } catch (error) {
       return res
@@ -31,7 +30,7 @@ class UserController {
     res: Response
   ): Promise<Response<Record<string, any>>> {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await userService.getUser(req.params.id);
       return res.json(user);
     } catch (error) {
       return res.status(404).send({ error: "User not found" });
@@ -50,7 +49,11 @@ class UserController {
     res: Response
   ): Promise<Response<Record<string, any>>> {
     try {
-      const updateUser = await User.findByIdAndUpdate(req.params.id, req.body);
+      const updateUser = await userService.updateUser(req.params.id, {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        date_of_birth: new Date(req.body.date_of_birth),
+      });
       await updateUser.save();
       return res.json({ status: "User updated" });
     } catch (error) {
@@ -64,9 +67,12 @@ class UserController {
    * @description : Delete user
    * @returns { Response<User> }
    */
-  async deleteUser(req: any, res: any): Promise<Response<Record<string, any>>> {
+  async deleteUser(
+    req: Request,
+    res: Response
+  ): Promise<Response<Record<string, any>>> {
     try {
-      await User.findByIdAndDelete(req.params.id);
+      await userService.deleteUser(req.params.id);
       return res.json({ status: "User deleted successfully" });
     } catch (error) {
       return res.status(404).send({ error: "User not found" });
@@ -85,11 +91,7 @@ class UserController {
     res: Response
   ): Promise<Response<string, Record<string, any>>> {
     try {
-      const newUser = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        date_of_birth: new Date(req.body.date_of_birth),
-      });
+      const newUser = await userService.createUser(req.body);
       await newUser.save();
       return res.json({ message: "User saved successfully" });
     } catch (error) {
