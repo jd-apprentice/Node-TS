@@ -64,7 +64,7 @@ class UserController {
    * @description : Delete user
    * @returns { Response<User> }
    */
-  async deleteUser(req: any, res: any): Promise<Response<Record<string, any>>> {
+  async deleteUser(req: Request, res: Response): Promise<Response<Record<string, any>>> {
     try {
       await User.findByIdAndDelete(req.params.id);
       return res.json({ status: "User deleted successfully" });
