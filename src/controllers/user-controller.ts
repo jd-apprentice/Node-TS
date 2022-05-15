@@ -67,6 +67,7 @@ class UserController {
    * @description : Delete user
    * @returns { Response<User> }
    */
+  
   async deleteUser(
     req: Request,
     res: Response
