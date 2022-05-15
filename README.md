@@ -41,7 +41,7 @@
 
 ## 🍇 Heroku deploy
 
-- Go ahead to https://www.heroku.com/ create and account and logging into the dashboard
+- Go ahead to https://www.heroku.com/ create an account then logging into the dashboard
 
 ![DASHBOARD](https://cdn.discordapp.com/attachments/875262629516546089/975137204596768768/unknown.png)
 
