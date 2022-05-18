@@ -1,4 +1,4 @@
-import { IUser } from "../models/interfaces/types";
+import { IUser } from "models/interfaces/types";
 import User from "../models/user";
 import { Response } from "express";
 
@@ -32,7 +32,7 @@ class UserService {
   }
 
   /**
-   * @description : Get one user
+   * @description : Create one user
    * @param body
    * @returns { Response<User> }
    */
