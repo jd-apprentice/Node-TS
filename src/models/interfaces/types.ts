@@ -1,5 +1,3 @@
-import { Callback, SaveOptions } from "mongoose";
-
 export type Config = {
   app: {
     port: typeof process.env.DB_PORT;
