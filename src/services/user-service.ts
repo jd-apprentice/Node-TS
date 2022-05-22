@@ -1,6 +1,6 @@
 import { IUser } from "models/interfaces/types";
+import userRepository from "../repositories/user.repository";
 import User from "../models/user";
-import { Response } from "express";
 
 /**
  * @description : Get all users
@@ -10,7 +10,7 @@ import { Response } from "express";
 class UserService {
   async getUsers() {
     try {
-      const users = await User.find();
+      const users = userRepository.findAll();
       return users;
     } catch (error: any) {
       throw new Error(error);
@@ -24,7 +24,7 @@ class UserService {
 
   async getUser(id: string): Promise<IUser> {
     try {
-      const user = await User.findById(id);
+      const user = await userRepository.findById(id);
       return user;
     } catch (error: any) {
       throw new Error(error);
@@ -45,7 +45,7 @@ class UserService {
         last_name,
         date_of_birth,
       });
-      return await newUser.save();
+      return userRepository.create(newUser);
     } catch (error: any) {
       throw new Error(error);
     }
@@ -60,7 +60,7 @@ class UserService {
 
   async updateUser(id: string, body: IUser): Promise<IUser> {
     try {
-      const updateUser = await User.findByIdAndUpdate(id, body);
+      const updateUser = await userRepository.update(id, body);
       return await updateUser.save();
     } catch (error: any) {
       throw new Error(error);
@@ -70,12 +70,12 @@ class UserService {
   /**
    * @description : Delete one user
    * @param id
-   * @returns { Response<User> }
+   * @returns { Response }
    */
 
-  async deleteUser(id: string): Promise<IUser> {
+  async deleteUser(id: string) {
     try {
-      const deleteUser = await User.findByIdAndDelete(id);
+      const deleteUser = await userRepository.delete(id);
       return deleteUser;
     } catch (error: any) {
       throw new Error(error);
