@@ -85,10 +85,13 @@
 |--> models
     |--> interfaces
     >user.ts
+|--> repositories
+    >user-repository.ts
 |--> routes
     >user-route.ts
     >index.ts
 |--> services
+    >user-service.ts
 >database.ts (Connection with the database)
 >index.ts (Run the app)
 >server.ts (App instance)
