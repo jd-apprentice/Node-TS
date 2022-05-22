@@ -49,9 +49,9 @@ class UserService {
    * @returns { Response<User> }
    */
 
-  async updateUser(id: string, body: IUser): Promise<IUser> {
+  async updateUser(id: string, user: IUser): Promise<IUser> {
     try {
-      return userRepository.update(id, body);
+      return userRepository.update(id, user);
     } catch (error: any) {
       throw new Error(error);
     }
