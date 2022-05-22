@@ -1,6 +1,5 @@
 import { IUser } from "models/interfaces/types";
-import userRepository from "../repositories/user.repository";
-import User from "../models/user";
+import userRepository from "../repositories/user-repository";
 
 /**
  * @description : Get all users
@@ -10,8 +9,7 @@ import User from "../models/user";
 class UserService {
   async getUsers() {
     try {
-      const users = userRepository.findAll();
-      return users;
+      return userRepository.findAll();
     } catch (error: any) {
       throw new Error(error);
     }
@@ -24,8 +22,7 @@ class UserService {
 
   async getUser(id: string): Promise<IUser> {
     try {
-      const user = await userRepository.findById(id);
-      return user;
+      return userRepository.findById(id);
     } catch (error: any) {
       throw new Error(error);
     }
@@ -33,19 +30,13 @@ class UserService {
 
   /**
    * @description : Create one user
-   * @param body
+   * @param user
    * @returns { Response<User> }
    */
 
-  async createUser(body: IUser): Promise<IUser> {
-    const { first_name, last_name, date_of_birth } = body;
+  async createUser(user: IUser): Promise<IUser> {
     try {
-      const newUser = new User({
-        first_name,
-        last_name,
-        date_of_birth,
-      });
-      return userRepository.create(newUser);
+      return userRepository.create(user);
     } catch (error: any) {
       throw new Error(error);
     }
@@ -58,10 +49,9 @@ class UserService {
    * @returns { Response<User> }
    */
 
-  async updateUser(id: string, body: IUser): Promise<IUser> {
+  async updateUser(id: string, user: IUser): Promise<IUser> {
     try {
-      const updateUser = await userRepository.update(id, body);
-      return await updateUser.save();
+      return userRepository.update(id, user);
     } catch (error: any) {
       throw new Error(error);
     }
@@ -75,8 +65,7 @@ class UserService {
 
   async deleteUser(id: string) {
     try {
-      const deleteUser = await userRepository.delete(id);
-      return deleteUser;
+      return userRepository.delete(id);
     } catch (error: any) {
       throw new Error(error);
     }
